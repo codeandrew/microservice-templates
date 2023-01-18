@@ -1,8 +1,14 @@
 from flask import Flask, jsonify, request
-from mongo_client import MongoClient
+from mongo_client import MongoDb
+import os
 
 app = Flask(__name__)
-mongo = MongoClient()
+#mongo = MongoClient(os.environ.get('MONGO_HOST'), os.environ.get('MONGO_PORT'),username=os.environ.get('MONGO_INITDB_ROOT_USERNAME'),password=os.environ.get('MONGO_INITDB_ROOT_PASSWORD'))
+mongo = MongoDb(db_name='crud',collection_name='poc1')
+
+@app.route('/')
+def health_check():
+    return jsonify(status="health")
 
 @app.route('/get/<id>', methods=['GET'])
 def get_by_id(id):
