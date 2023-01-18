@@ -10,7 +10,7 @@ mongo = MongoDb(db_name='crud',collection_name='poc1')
 def health_check():
     return jsonify(status="health")
 
-@app.route('/get/<id>', methods=['GET'])
+@app.route('/api/get/<id>', methods=['GET'])
 def get_by_id(id):
     doc = mongo.get(id)
     if doc:
@@ -18,27 +18,27 @@ def get_by_id(id):
     else:
         return "Document not found", 404
 
-@app.route('/getall', methods=['GET'])
+@app.route('/api/getall', methods=['GET'])
 def get_all():
     docs = mongo.get_all()
     return jsonify(docs)
 
-@app.route('/create', methods=['POST'])
+@app.route('/api/create', methods=['POST'])
 def create():
     data = request.get_json()
-    mongo.create(data)
-    return "Document created", 201
+    response = mongo.create(data)
+    return jsonify(response), 201
 
-@app.route('/update', methods=['PUT'])
+@app.route('/api/update', methods=['PUT'])
 def update():
     data = request.get_json()
     mongo.update(data)
     return "Document updated", 200
 
-@app.route('/delete/<id>', methods=['DELETE'])
+@app.route('/api/delete/<id>', methods=['DELETE'])
 def delete(id):
     mongo.delete(id)
     return "Document deleted", 200
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=8080)

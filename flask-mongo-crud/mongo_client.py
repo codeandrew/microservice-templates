@@ -5,7 +5,7 @@ import os
 class MongoDb:
     def __init__(self, db_name, collection_name):
         #self.client = MongoClient()
-        self.client = MongoClient(os.environ.get('MONGO_HOST'), os.environ.get('MONGO_PORT'),username=os.environ.get('MONGO_INITDB_ROOT_USERNAME'),password=os.environ.get('MONGO_INITDB_ROOT_PASSWORD'))
+        self.client = MongoClient( os.environ.get('MONGO_HOST'), int(os.environ.get('MONGO_PORT')),username=os.environ.get('MONGO_INITDB_ROOT_USERNAME'),password=os.environ.get('MONGO_INITDB_ROOT_PASSWORD'))
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 
