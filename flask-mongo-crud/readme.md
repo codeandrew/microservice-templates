@@ -1,15 +1,19 @@
 # FLASK MONGO CRUD 
 
 ## PRE REQUISITE
+
+
 in linux
 ```bash
-mkdir -p ~/database/mongo 
-docker volume create --driver local --opt type=none --opt device=~/database/mongo --opt o=bind mongo_crud
+docker volume rm mongo_crud 
+mkdir -p $HOME/mongo/crud
+docker volume create --driver local --opt type=none --opt device=$HOME/mongo/crud --opt o=bind mongo_crud
 ```
 
 
 in mac
 ```bash
+docker volume rm mongo_crud 
 mkdir -p ~/database/mongo 
 docker volume create --driver local --opt type=none --opt device=/Users/$USER/database/mongo --opt o=bind mongo_crud
 ```
