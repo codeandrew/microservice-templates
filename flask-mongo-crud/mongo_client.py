@@ -1,5 +1,7 @@
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+from datetime import datetime
+
 import os
 
 class MongoDb:
@@ -9,18 +11,19 @@ class MongoDb:
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 
-    def get(self, _id):
+    def get_by_id(self, _id):
         doc = self.collection.find_one({"_id": ObjectId(_id)})
         if doc:
             return self.serialize_doc(doc)
         else:
             return None
 
-    def getAll(self):
+    def get_all(self):
         docs = self.collection.find()
         return [self.serialize_doc(doc) for doc in docs]
 
     def create(self, data):
+        data["created_at"] = datetime.utcnow().isoformat()
         self.collection.insert_one(data)
         return self.serialize_doc(data)
 
@@ -30,7 +33,6 @@ class MongoDb:
             return self.serialize_doc(data)
         except:
             return {"status": "error"}
-
 
     def delete(self, _id):
         try:

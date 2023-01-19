@@ -12,13 +12,17 @@ def health_check():
 
 @app.route('/api/get/<id>', methods=['GET'])
 def get_by_id(id):
-    doc = mongo.get(id)
+    doc = mongo.get_by_id(id)
     if doc:
         return jsonify(doc)
     else:
-        return "Document not found", 404
+        return jsonify( {
+                "status": "error",
+                "message": "No ID was found" 
+        }), 404
+        
 
-@app.route('/api/getall', methods=['GET'])
+@app.route('/api/get', methods=['GET'])
 def get_all():
     docs = mongo.get_all()
     return jsonify(docs)
