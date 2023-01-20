@@ -29,17 +29,18 @@ class MongoDb:
 
     def update(self, _id, data):
         try:
+            data["updated_at"] = datetime.utcnow().isoformat()
             self.collection.update_one({"_id": ObjectId(_id)}, {"$set": data})
             return self.serialize_doc(data)
         except:
-            return {"status": "error"}
+            return None
 
     def delete(self, _id):
         try:
             self.collection.delete_one({"_id": ObjectId(_id)})
-            return {"status": "success"}
+            return {"status": "Document deleted"}
         except:
-            return {"status": "error"}
+            return None
 
     def serialize_doc(self, doc):
         doc["_id"] = str(doc["_id"])

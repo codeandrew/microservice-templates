@@ -31,7 +31,6 @@ def get_by_id(id):
                 "status": "error",
                 "message": "No ID was found" 
         }), 404
-        
 
 @app.route('/api/get', methods=['GET'])
 def get_all():
@@ -48,12 +47,28 @@ def create():
 def update():
     data = request.get_json()
     doc = mongo.update(data)
-    return "Document updated", 200
+    if doc:
+        response = {
+            "status": "Document updated",
+            "doc": doc
+        }
+        return response, 200
+    else:
+        return jsonify({
+                "status": "error",
+                "message": "No ID was found" 
+        }), 404
 
 @app.route('/api/delete/<id>', methods=['DELETE'])
 def delete(id):
-    mongo.delete(id)
-    return "Document deleted", 200
+    doc = mongo.delete(id)
+    if doc:
+        return "Document deleted", 200
+    else:
+        return jsonify({
+                "status": "error",
+                "message": "No ID was found" 
+        }), 404
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080)
