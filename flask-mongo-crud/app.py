@@ -3,7 +3,6 @@ from mongo_client import MongoDb
 import os
 
 app = Flask(__name__)
-#mongo = MongoClient(os.environ.get('MONGO_HOST'), os.environ.get('MONGO_PORT'),username=os.environ.get('MONGO_INITDB_ROOT_USERNAME'),password=os.environ.get('MONGO_INITDB_ROOT_PASSWORD'))
 mongo = MongoDb(db_name='crud',collection_name='poc1')
 
 def get_headers():
@@ -28,7 +27,7 @@ def get_by_id(id):
         return jsonify(doc)
     else:
         return jsonify({
-                "status": "error",
+                "status": "error 404",
                 "message": "No ID was found" 
         }), 404
 
@@ -43,21 +42,24 @@ def create():
     response = mongo.create(data)
     return jsonify(response), 201
 
-@app.route('/api/update', methods=['PUT'])
-def update():
+@app.route('/api/update/<id>', methods=['PUT'])
+def update(id):
     data = request.get_json()
-    doc = mongo.update(data)
-    if doc:
-        response = {
-            "status": "Document updated",
-            "doc": doc
-        }
-        return response, 200
-    else:
-        return jsonify({
-                "status": "error",
-                "message": "No ID was found" 
-        }), 404
+    doc = mongo.update(id, data)
+    print(doc)
+    return jsonify(doc),200
+    # if doc:
+    #     # response = {
+    #     #     "status": "Document updated",
+    #     #     "doc": doc
+    #     # }
+    #     # return response, 200
+    #     return jsonify(doc),200
+    # else:
+    #     return jsonify({
+    #             "status": "error 404",
+    #             "message": "No ID was found" 
+    #     }), 404
 
 @app.route('/api/delete/<id>', methods=['DELETE'])
 def delete(id):

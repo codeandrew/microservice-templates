@@ -1,12 +1,10 @@
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 from datetime import datetime
-
 import os
 
 class MongoDb:
     def __init__(self, db_name, collection_name):
-        #self.client = MongoClient()
         self.client = MongoClient( os.environ.get('MONGO_HOST'), int(os.environ.get('MONGO_PORT')),username=os.environ.get('MONGO_INITDB_ROOT_USERNAME'),password=os.environ.get('MONGO_INITDB_ROOT_PASSWORD'))
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
@@ -30,8 +28,8 @@ class MongoDb:
     def update(self, _id, data):
         try:
             data["updated_at"] = datetime.utcnow().isoformat()
-            self.collection.update_one({"_id": ObjectId(_id)}, {"$set": data})
-            return self.serialize_doc(data)
+            doc = self.collection.update_one({"_id": ObjectId(_id)}, {"$set": data})
+            return self.serialize_doc(doc)
         except:
             return None
 
