@@ -27,7 +27,7 @@ def get_by_id(id):
     if doc:
         return jsonify(doc)
     else:
-        return jsonify( {
+        return jsonify({
                 "status": "error",
                 "message": "No ID was found" 
         }), 404
@@ -62,8 +62,8 @@ def update():
 @app.route('/api/delete/<id>', methods=['DELETE'])
 def delete(id):
     doc = mongo.delete(id)
-    if doc:
-        return "Document deleted", 200
+    if doc: 
+        return { "status": "Document deleted" }, 200
     else:
         return jsonify({
                 "status": "error",
