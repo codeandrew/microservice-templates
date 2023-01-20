@@ -6,9 +6,20 @@ app = Flask(__name__)
 #mongo = MongoClient(os.environ.get('MONGO_HOST'), os.environ.get('MONGO_PORT'),username=os.environ.get('MONGO_INITDB_ROOT_USERNAME'),password=os.environ.get('MONGO_INITDB_ROOT_PASSWORD'))
 mongo = MongoDb(db_name='crud',collection_name='poc1')
 
+def get_headers():
+    headers = {}
+    headers['ip'] = request.headers.get('X-Real-IP', request.remote_addr)
+    headers['user_agent'] = request.headers.get('User-Agent')
+    headers['accept_language'] = request.headers.get('Accept-Language')
+    headers['accept_encoding'] = request.headers.get('Accept-Encoding')
+    headers['connection'] = request.headers.get('Connection')
+    headers['host'] = request.headers.get('Host')
+    return headers
+
 @app.route('/')
 def health_check():
-    return jsonify(status="health")
+    headers = get_headers()
+    return jsonify(status="health", headers=headers)
 
 @app.route('/api/get/<id>', methods=['GET'])
 def get_by_id(id):
@@ -36,7 +47,7 @@ def create():
 @app.route('/api/update', methods=['PUT'])
 def update():
     data = request.get_json()
-    mongo.update(data)
+    doc = mongo.update(data)
     return "Document updated", 200
 
 @app.route('/api/delete/<id>', methods=['DELETE'])
