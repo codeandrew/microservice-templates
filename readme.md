@@ -29,3 +29,5 @@ def filter_payloads(string):
 
 ## REFERENCES
 
+- Authentication & Authorization in Microservice Architectures
+> https://www.youtube.com/watch?v=AQ-JMjPoPIc
