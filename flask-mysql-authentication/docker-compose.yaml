@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./:/app"
+    depends_on:
+      - mysql
+    environment:
+      FLASK_APP: app.py 
+      FLASK_ENV: development
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_NAME: users
+  mysql:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mysql_data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: users
+    command: sh -c 'exec mysql -uroot -proot -e "CREATE DATABASE mydb; CREATE USER 'myuser'@'%' IDENTIFIED BY 'mypassword'; GRANT ALL PRIVILEGES ON mydb.* TO 'myuser'@'%'; FLUSH PRIVILEGES;"'
+
+
+volumes:
+  mysql_data:
+    external: true

@@ -1,0 +1,11 @@
+Flask
+flask-cors
+gunicorn
+
+Flask-SQLAlchemy
+SQLAlchemy
+
+#mysql-python
+#libmysqlclient-dev
+mysqlclient
+
