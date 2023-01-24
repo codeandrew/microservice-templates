@@ -1,5 +1,15 @@
 # MICROSERVICE TEMPLATES
 
+## GUIDING PRINCIPLES
+
+**MICROSERVICE SINGLE RESPONSIBILITY**
+- a microservice should only be responsible in doing only one domain
+
+**Single Source of Truth**
+- Every piece of information in a microservice should be managed authoritatively by a single service 
+
+**Implementation Cost** 
+- What the project/organization's budget 
 
 ## TO FOLLOW
 
@@ -15,3 +25,7 @@ def filter_payloads(string):
     return filtered_string
 
 ```
+
+
+## REFERENCES
+
