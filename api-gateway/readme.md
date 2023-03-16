@@ -1,5 +1,11 @@
 # API GATEWAY
 
+## PLAN
+
+![api](../docs/microservice-api-gateway.png)
+
+To Create something like this
+
 ## REFERENCES
 - https://www.nginx.com/blog/authenticating-api-clients-jwt-nginx-plus/
 - https://www.nginx.com/blog/deploying-nginx-plus-as-an-api-gateway-part-1/
