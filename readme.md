@@ -11,6 +11,9 @@
 **Implementation Cost** 
 - What the project/organization's budget 
 
+## API GATEWAY IMPLEMENTATION
+![gateway](./docs/microservice-api-gateway.png)
+
 ## TO FOLLOW
 
 Add validations for security
