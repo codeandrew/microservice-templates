@@ -24,6 +24,7 @@ def health_check():
     return jsonify(status="health", headers=headers)
 
 @app.route('/api/get/<id>', methods=['GET'])
+@cross_origin()
 def get_by_id(id):
     doc = mongo.get_by_id(id)
     if doc:
@@ -35,11 +36,13 @@ def get_by_id(id):
         }), 404
 
 @app.route('/api/get', methods=['GET'])
+@cross_origin()
 def get_all():
     docs = mongo.get_all()
     return jsonify(docs)
 
 @app.route('/api/create', methods=['POST'])
+@cross_origin()
 def create():
     data = request.get_json()
     response = mongo.create(data)
