@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+
 from mongo_client import MongoDb
 import os
 
 app = Flask(__name__)
+CORS(app)
 mongo = MongoDb(db_name='crud',collection_name='poc1')
 
 def get_headers():
