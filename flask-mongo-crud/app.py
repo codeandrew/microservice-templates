@@ -49,6 +49,7 @@ def create():
     return jsonify(response), 201
 
 @app.route('/api/update/<id>', methods=['PUT'])
+@cross_origin()
 def update(id):
     data = request.get_json()
     doc = mongo.update(id, data)
@@ -68,6 +69,7 @@ def update(id):
     #     }), 404
 
 @app.route('/api/delete/<id>', methods=['DELETE'])
+@cross_origin()
 def delete(id):
     doc = mongo.delete(id)
     if doc: 
