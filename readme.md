@@ -14,6 +14,14 @@
 ## API GATEWAY IMPLEMENTATION
 ![gateway](./docs/microservice-api-gateway.png)
 
+## Authentication Frameworks
+
+**SuperTokens**
+```
+npx create-supertokens-app@latest
+```
+https://supertokens.com/
+
 ## TO FOLLOW
 
 Add validations for security
