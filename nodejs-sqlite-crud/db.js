@@ -48,6 +48,15 @@ class SQLiteDB {
         });
     }
 
+    getAllUsers(callback) {
+        const sql = `SELECT * FROM users`;
+    
+        this.db.all(sql, [], (err, rows) => {
+            callback(err, rows);
+        });
+    }
+    
+
     updateUser(id, user, callback) {
         const { username, password, name, age, email } = user;
         const sql = `UPDATE users SET username = ?, password = ?, name = ?, age = ?, email = ? WHERE id = ?`;

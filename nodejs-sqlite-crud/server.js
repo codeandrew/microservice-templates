@@ -26,6 +26,17 @@ app.get('/users/:id', (req, res) => {
     });
 });
 
+app.get('/users', (req, res) => {
+    db.getAllUsers((err, rows) => {
+        if (err) {
+            res.status(400).send(err.message);
+        } else {
+            res.status(200).json(rows);
+        }
+    });
+});
+
+
 app.put('/users/:id', (req, res) => {
     db.updateUser(req.params.id, req.body, (err, data) => {
         if (err) {
