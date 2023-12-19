@@ -55,7 +55,6 @@ class SQLiteDB {
             callback(err, rows);
         });
     }
-    
 
     updateUser(id, user, callback) {
         const { username, password, name, age, email } = user;
